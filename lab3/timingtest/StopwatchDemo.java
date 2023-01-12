@@ -21,7 +21,12 @@ public class StopwatchDemo {
         Stopwatch sw = new Stopwatch();
         int fib41 = fib(41);
         double timeInSeconds = sw.elapsedTime();
+        Stopwatch sw2 = new Stopwatch();
+        int fib10 = fib(30);
+        double time2 = sw2.elapsedTime();
         System.out.println("The 50th fibonacci number is " + fib41);
         System.out.println("Time taken to compute 41st fibonacci number: " + timeInSeconds + " seconds.");
+        System.out.println("The 10th fibonacci number is " + fib10);
+        System.out.println("Time taken to compute 10st fibonacci number: " + time2 + " seconds.");
     }
 }
