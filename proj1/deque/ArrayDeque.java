@@ -74,6 +74,9 @@ public class ArrayDeque<T>{
     }
     /*Removes and returns the item at the front of the deque. If no such item exists, returns null.*/
     public T removeFirst(){
+        if(size==0){
+            return null;
+        }
         int firstIndex=(nextFirst+1)% items.length;
         T value=items[firstIndex];
         items[firstIndex]=null;
@@ -85,6 +88,9 @@ public class ArrayDeque<T>{
 
     /*Removes and returns the item at the back of the deque. If no such item exists, returns null.*/
     public T removeLast(){
+        if(size==0){
+            return null;
+        }
         int lastIndex=(nextLast-1+ items.length)% items.length;
         T value=items[lastIndex];
         items[lastIndex]=null;
@@ -96,7 +102,14 @@ public class ArrayDeque<T>{
 
     /* Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque!*/
     public T get(int index){
-        return items[index];
+        int cnt = 0;
+        for(int i=(nextFirst+1)% items.length;i!=(nextLast-1+ items.length)% items.length;i=(i+1)% items.length){
+            if(cnt==index){
+                return items[i];
+            }
+            cnt++;
+        }
+        return null;
     }
 
 }
