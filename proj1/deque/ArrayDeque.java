@@ -56,7 +56,7 @@ public class ArrayDeque<T>{
 
     /*Prints the items in the deque from first to last, separated by a space. Once all the items have been printed, print out a new line.*/
     public void printDeque(){
-        for(int i=(nextFirst+1)% items.length;i!=(nextLast-1+ items.length)% items.length;i=(i+1)% items.length){
+        for(int i=(nextFirst+1)% items.length;i!=nextLast;i=(i+1)% items.length){
             System.out.print(items[i]+" ");
         }
         System.out.println();
@@ -103,7 +103,7 @@ public class ArrayDeque<T>{
     /* Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque!*/
     public T get(int index){
         int cnt = 0;
-        for(int i=(nextFirst+1)% items.length;i!=(nextLast-1+ items.length)% items.length;i=(i+1)% items.length){
+        for(int i=(nextFirst+1)% items.length;i!=nextLast;i=(i+1)% items.length){
             if(cnt==index){
                 return items[i];
             }
