@@ -141,4 +141,20 @@ public class LinkedListDequeTest {
         assertEquals(6,(int)d1.getRecursive(3));
 
     }
+
+    @Test
+    public void IteratorTest(){
+        LinkedListDeque<Integer> d1=new LinkedListDeque<>();
+        LinkedListDeque<Integer> d2=new LinkedListDeque<>();
+
+        d1.addFirst(9);
+        d1.addFirst(8);
+        d1.addFirst(7);
+        d2.addFirst(9);
+        d2.addFirst(8);
+        d2.addFirst(7);
+        d2.addFirst(7);
+
+        System.out.println(d1.equals(d2));
+    }
 }

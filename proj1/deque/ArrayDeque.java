@@ -1,5 +1,8 @@
 package deque;
-public class ArrayDeque<T> implements Deque<T>{
+
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
     public int size;
     public T[] items;
     public int nextFirst;
@@ -117,14 +120,58 @@ public class ArrayDeque<T> implements Deque<T>{
     @Override
     /* Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque!*/
     public T get(int index){
-        int cnt = 0;
-        for(int i=(nextFirst+1)% items.length;i!=nextLast;i=(i+1)% items.length){
-            if(cnt==index){
-                return items[i];
-            }
-            cnt++;
-        }
-        return null;
+        return items[(nextFirst+1+index)%items.length];
     }
 
+    /*The Deque objects we’ll make are iterable (i.e. Iterable<T>) so we must provide this method to return an iterator.*/
+    public Iterator<T> iterator(){
+        return new ArrayDequeIterator();
+    }
+    private class ArrayDequeIterator implements Iterator<T>{
+        private int pos;
+        public ArrayDequeIterator(){
+            pos = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return pos<size;
+        }
+
+        @Override
+        public T next() {
+            T returnValue = get(pos);
+            pos++;
+            return returnValue;
+        }
+    }
+
+    /*Returns whether or not the parameter o is equal to the Deque. o is considered equal if it is a Deque
+    and if it contains the same contents (as goverened by the generic T’s equals method) in the same order
+     */
+    public boolean equals(Object o){
+        if(o == null){
+            return false;
+        }
+        if(this == o){
+            return true;
+        }
+        if(this.getClass()!=o.getClass()){
+            return false;
+        }
+        int index=0;
+        ArrayDeque<T> o1 = (ArrayDeque<T>) o;
+        if(this.size!=o1.size){
+            return false;
+        }
+        for(T item:this){
+            if(item.equals(o1.get(index))){
+                index++;
+                continue;
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
 }
