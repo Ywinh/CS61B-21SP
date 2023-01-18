@@ -1,9 +1,9 @@
 package deque;
-public class ArrayDeque<T>{
-    private int size;
-    private T[] items;
-    private int nextFirst;
-    private int nextLast;
+public class ArrayDeque<T> implements Deque<T>{
+    public int size;
+    public T[] items;
+    public int nextFirst;
+    public int nextLast;
 
     public ArrayDeque(){
         items=(T[]) new Object[8];
@@ -22,8 +22,22 @@ public class ArrayDeque<T>{
     }
 
     public void resizeDown(int capacity){
-
+        T[] a=(T[]) new Object[capacity];
+        if(nextFirst<nextLast){
+            System.arraycopy(items,(nextFirst+1)%items.length,a,0,nextLast-nextFirst-1);
+            items=a;
+            nextFirst=capacity-1;
+            nextLast=size;
+        }else{
+            System.arraycopy(items,(nextFirst+1)%items.length,a,0,items.length-nextFirst-1);
+            System.arraycopy(items,0,a,items.length-nextFirst-1,nextLast);
+            items=a;
+            nextFirst=capacity-1;
+            nextLast=size;
+        }
     }
+
+    @Override
     /*Adds an item of type T to the front of the deque. You can assume that item is never null.*/
     public void addFirst(T item){
         if(size== items.length){
@@ -34,6 +48,7 @@ public class ArrayDeque<T>{
         size+=1;
     }
 
+    @Override
     /*Adds an item of type T to the back of the deque. You can assume that item is never null.*/
     public void addLast(T item){
         if(size== items.length){
@@ -44,16 +59,13 @@ public class ArrayDeque<T>{
         size+=1;
     }
 
-    /*Returns true if deque is empty, false otherwise.*/
-    public boolean isEmpty(){
-        return size==0;
-    }
-
+    @Override
     /* Returns the number of items in the deque.*/
     public int size(){
         return size;
     }
 
+    @Override
     /*Prints the items in the deque from first to last, separated by a space. Once all the items have been printed, print out a new line.*/
     public void printDeque(){
         for(int i=(nextFirst+1)% items.length;i!=nextLast;i=(i+1)% items.length){
@@ -63,15 +75,16 @@ public class ArrayDeque<T>{
     }
 
     public void proptional(){
-        if(size<16){
+        if(items.length<16){
             return;
         }
         double ratio= (double)size/items.length;
         if(ratio<0.25){
-            resizeDown(size/2);
+            resizeDown(items.length/2);
         }
-        return;
     }
+
+    @Override
     /*Removes and returns the item at the front of the deque. If no such item exists, returns null.*/
     public T removeFirst(){
         if(size==0){
@@ -86,6 +99,7 @@ public class ArrayDeque<T>{
         return value;
     }
 
+    @Override
     /*Removes and returns the item at the back of the deque. If no such item exists, returns null.*/
     public T removeLast(){
         if(size==0){
@@ -100,6 +114,7 @@ public class ArrayDeque<T>{
         return value;
     }
 
+    @Override
     /* Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque!*/
     public T get(int index){
         int cnt = 0;

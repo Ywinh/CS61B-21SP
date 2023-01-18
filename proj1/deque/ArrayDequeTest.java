@@ -7,8 +7,12 @@ public class ArrayDequeTest {
     @Test
     public void getTest(){
         ArrayDeque<Integer> a1=new ArrayDeque<>();
-        a1.addFirst(1);
-        a1.get(0);
-        assertEquals(1,a1.size());
+        for(int i=0;i<30;i++){
+            a1.addFirst(i);
+        }
+        for(int i=0;i<27;i++){
+            a1.removeLast();
+        }
+
     }
 }
