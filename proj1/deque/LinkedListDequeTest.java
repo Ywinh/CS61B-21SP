@@ -2,10 +2,30 @@ package deque;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.Iterator;
 
 
 /** Performs some basic linked list tests. */
 public class LinkedListDequeTest {
+
+    @Test
+    public void myTest(){
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(5);
+        lld1.removeFirst();
+        lld1.addFirst(8);
+        lld1.addFirst(9);
+        lld1.getRecursive(0);
+        lld1.addLast(11);
+        lld1.addFirst(12);
+        lld1.removeLast();
+        lld1.removeFirst();
+        lld1.getRecursive(0);
+        lld1.removeLast();
+        lld1.removeFirst();
+
+
+    }
 
 
     @Test
@@ -147,14 +167,24 @@ public class LinkedListDequeTest {
         LinkedListDeque<Integer> d1=new LinkedListDeque<>();
         LinkedListDeque<Integer> d2=new LinkedListDeque<>();
 
+        Iterator<Integer> i1 = d1.iterator();
+        Iterator<Integer> i2 = d2.iterator();
+
+        assertFalse(i2.hasNext());
+
         d1.addFirst(9);
         d1.addFirst(8);
         d1.addFirst(7);
-        d2.addFirst(9);
-        d2.addFirst(8);
-        d2.addFirst(7);
-        d2.addFirst(7);
+        //d2.addFirst(9);
+        //d2.addFirst(8);
+        //d2.addFirst(7);
+        //d2.addFirst(7);
 
-        System.out.println(d1.equals(d2));
+        for(int i=0;i<10;i++){
+            i1.next();
+        }
+        assertFalse(i1.hasNext());
+
+        //System.out.println(d1.equals(d2));
     }
 }

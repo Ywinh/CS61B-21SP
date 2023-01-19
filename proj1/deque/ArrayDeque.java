@@ -3,10 +3,10 @@ package deque;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
-    public int size;
-    public T[] items;
-    public int nextFirst;
-    public int nextLast;
+    private int size;
+    private T[] items;
+    private int nextFirst;
+    private int nextLast;
 
     public ArrayDeque(){
         items=(T[]) new Object[8];
@@ -15,7 +15,7 @@ public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
         nextLast=5;
     }
 
-    public void resizeUp(int capacity){
+    private void resizeUp(int capacity){
         T[] a=(T[]) new Object[capacity];
         System.arraycopy(items,nextLast,a,0,items.length-nextLast);
         System.arraycopy(items,0,a,items.length-nextLast,nextFirst+1);
@@ -24,7 +24,7 @@ public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
         nextLast=size;
     }
 
-    public void resizeDown(int capacity){
+    private void resizeDown(int capacity){
         T[] a=(T[]) new Object[capacity];
         if(nextFirst<nextLast){
             System.arraycopy(items,(nextFirst+1)%items.length,a,0,nextLast-nextFirst-1);
@@ -43,7 +43,7 @@ public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
     @Override
     /*Adds an item of type T to the front of the deque. You can assume that item is never null.*/
     public void addFirst(T item){
-        if(size== items.length){
+        if(size == items.length){
             resizeUp(size*2);
         }
         items[nextFirst]=item;
@@ -77,7 +77,7 @@ public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
         System.out.println();
     }
 
-    public void proptional(){
+    private void proptional(){
         if(items.length<16){
             return;
         }
@@ -156,12 +156,12 @@ public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
         if(this == o){
             return true;
         }
-        if(this.getClass()!=o.getClass()){
+        /*if(this.getClass()!=o.getClass()){
             return false;
-        }
+        }*/
         int index=0;
         ArrayDeque<T> o1 = (ArrayDeque<T>) o;
-        if(this.size!=o1.size){
+        if(this.size!=o1.size()){
             return false;
         }
         for(T item:this){

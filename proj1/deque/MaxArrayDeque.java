@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Comparator;
 
-public class MaxArrayDeque <T> extends ArrayDeque{
+public class MaxArrayDeque <T> extends ArrayDeque<T>{
 
     private Comparator<T> maxComparator;
 
@@ -21,10 +21,10 @@ public class MaxArrayDeque <T> extends ArrayDeque{
         if(isEmpty()){
             return null;
         }
-        T returnMax =(T) get(0);
-        for(int i=0;i<size;i++){
-            if(c.compare((T)get(i),returnMax)>0){
-                returnMax = (T)get(i);
+        T returnMax = get(0);
+        for(int i=0;i<size();i++){
+            if(c.compare(get(i),returnMax)>0){
+                returnMax = get(i);
             }
         }
         return returnMax;
