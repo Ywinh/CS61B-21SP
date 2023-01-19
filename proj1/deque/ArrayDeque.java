@@ -149,6 +149,7 @@ public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
     /*Returns whether or not the parameter o is equal to the Deque. o is considered equal if it is a Deque
     and if it contains the same contents (as goverened by the generic T’s equals method) in the same order
      */
+    @Override
     public boolean equals(Object o){
         if(o == null){
             return false;
@@ -159,6 +160,9 @@ public class ArrayDeque<T> implements Deque<T> ,Iterable<T>{
         /*if(this.getClass()!=o.getClass()){
             return false;
         }*/
+        if(!(o instanceof Deque)){
+            return false;
+        }
         int index=0;
         ArrayDeque<T> o1 = (ArrayDeque<T>) o;
         if(this.size!=o1.size()){
