@@ -1,5 +1,6 @@
 package bstmap;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -95,17 +96,71 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B <K, V>{
         return T;
     }
 
+    /*prints out your BSTMap in order of increasing Key.*/
+    public void printInOrder(){
+        printInOrder(root);
+    }
+    private void printInOrder(BSTNode T){
+        if(T==null) return;
+        printInOrder(T.left);
+        System.out.println(T.key);
+        printInOrder(T.right);
+    }
+
+
     /* Returns a Set view of the keys contained in this map. Not required for Lab 7.
      * If you don't implement this, throw an UnsupportedOperationException. */
     public Set<K> keySet(){
-        throw new UnsupportedOperationException();
+        Set<K> s = new HashSet<>();
+        keySet(s,root);
+        return s;
+    }
+
+    private void keySet(Set<K> s,BSTNode T){
+        if(T==null) return;
+        keySet(s,T.left);
+        s.add(T.key);
+        keySet(s,T.right);
     }
 
     /* Removes the mapping for the specified key from this map if present.
      * Not required for Lab 7. If you don't implement this, throw an
      * UnsupportedOperationException. */
     public V remove(K key){
+        BSTNode goal = find(key,root);
+        if(goal == null) return null;
         throw new UnsupportedOperationException();
+    }
+
+    //有空再写吧，递归版本太烧脑了
+    private BSTNode find(K key,BSTNode T){
+        if(T==null) return null;
+        if(key.equals(T.key)){
+            return T;
+        }if(key.compareTo(T.key)<0){
+            return find(key,T.left);
+        }else if(key.compareTo(T.key)>0){
+            return find(key,T.right);
+        }
+        return T;
+    }
+    private BSTNode findParent(K key,BSTNode T){
+        throw new UnsupportedOperationException();
+    }
+    private boolean hasNoChildren(BSTNode T){
+        if(T.left==null && T.right==null)   return true;
+        return false;
+    }
+
+    private boolean has1Children(BSTNode T){
+        if(T.left!=null && T.right==null)   return true;
+        if(T.left==null && T.right!=null)   return true;
+        return false;
+    }
+
+    private boolean has2Children(BSTNode T){
+        if(T.left!=null && T.right!=null)   return true;
+        return false;
     }
 
     /* Removes the entry for the specified key only if it is currently mapped to
@@ -117,6 +172,19 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B <K, V>{
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return new BSTMapIterator();
+    }
+
+    private class BSTMapIterator implements Iterator<K>{
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public K next() {
+            return null;
+        }
     }
 }
